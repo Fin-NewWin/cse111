@@ -1,8 +1,8 @@
 .headers on
 
 SELECT
-    r_name,
-    MAX(s_acctbal)
+    r_name AS region,
+    MAX(s_acctbal) AS max_bal
 FROM
     region,
     nation,

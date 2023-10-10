@@ -13,6 +13,6 @@ WHERE
     OR
     p_type LIKE '%ECONOMY%'
     AND
-    P_partkey = l_partkey
+    p_partkey = l_partkey
 GROUP BY
     p_type;

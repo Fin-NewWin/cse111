@@ -1,8 +1,8 @@
 .headers on
 
 SELECT 
-    n_name,
-    COUNT(*)
+    n_name AS country,
+    COUNT(DISTINCT s_suppkey) AS cnt
 FROM
     supplier,
     nation

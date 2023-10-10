@@ -1,8 +1,8 @@
 .headers on
 
 SELECT 
-    n_name as country,
-    COUNT(*) as cnt
+    n_name AS country,
+    COUNT(*) AS cnt
 FROM 
     customer, 
     orders, 

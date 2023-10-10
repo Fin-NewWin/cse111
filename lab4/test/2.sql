@@ -1,8 +1,8 @@
 .headers on
 
 SELECT
-    c_name as cutomer,
-    count(*) as cnt
+    c_name AS customer,
+    COUNT(DISTINCT o_orderkey) AS cnt
 FROM
     customer,
     orders,

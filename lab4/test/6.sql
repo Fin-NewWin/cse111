@@ -3,7 +3,7 @@
 SELECT
     s_name AS supplier_name,
     o_orderpriority AS priority,
-    COUNT(l_partkey) AS number_of_parts
+    COUNT(l_partkey) AS parts
 FROM
     nation,
     supplier,

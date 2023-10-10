@@ -15,5 +15,4 @@ FROM
 WHERE
     cust_nation.n_regionkey != supp_nation.n_regionkey
 GROUP BY
-    s_nationkey,
-    c_nationkey;
+    s_nationkey;

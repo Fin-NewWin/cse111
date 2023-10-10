@@ -1,7 +1,7 @@
 .headers on
 
 SELECT 
-    COUNT(DISTINCT o_clerk)
+    COUNT(DISTINCT o_clerk) AS clerks
 FROM
     orders,
     customer,
@@ -15,4 +15,3 @@ WHERE
     o_custkey = c_custkey
     AND
     c_nationkey = s_nationkey;
-

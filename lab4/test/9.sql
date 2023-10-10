@@ -2,7 +2,7 @@
 
 SELECT
     n_name as country,
-    COUNT(o_orderkey) as cnt
+    COUNT(DISTINCT o_orderkey) as cnt
 FROM
     nation,
     region,
