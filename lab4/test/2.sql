@@ -2,7 +2,7 @@
 
 SELECT
     c_name AS customer,
-    COUNT(DISTINCT o_orderkey) AS cnt
+    COUNT(DISTINCT o_orderkey) As cnt
 FROM
     customer,
     orders,
