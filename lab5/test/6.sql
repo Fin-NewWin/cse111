@@ -1,9 +1,9 @@
 .headers on
 
 SELECT
-    DISTINCT s_name AS supplier,
+    DISTINCT s_name as supplier,
     p_size AS part_size,
-    MAX(ps_supplycost) AS max_cost
+    MAX(ps_supplycost)
 FROM
     part,
     partsupp,
