@@ -178,6 +178,23 @@ def Q1(_conn):
         header = "{:>10} {:<40} {:>10} {:>10} {:>10}"
         output.write((header.format("wId", "wName", "wCap", "sId", "nId")) + "\n")
 
+        sql = """SELECT
+                    w_warehousekey,
+                    w_name,
+                    w_capacity,
+                    w_suppkey,
+                    w_nationkey
+                FROM
+                    warehouse"""
+
+        cur = _conn.cursor()
+        cur.execute(sql)
+        rows = cur.fetchall()
+
+        for row in rows:
+            print(row)
+            output.write((header.format(row[0], row[1], row[2], row[3], row[4])) + "\n")
+
         output.close()
     except Error as e:
         print(e)
@@ -194,6 +211,31 @@ def Q2(_conn):
 
         header = "{:<40} {:>10} {:>10}"
         output.write((header.format("nation", "numW", "totCap")) + "\n")
+
+        sql = """
+            SELECT 
+                n_name,
+                COUNT(w_warehousekey) AS numW,
+                SUM(w_capacity) AS totCap
+            FROM
+                warehouse,
+                nation
+            WHERE
+                w_nationkey = n_nationkey
+            GROUP BY 
+                n_name
+            ORDER BY 
+                COUNT(w_warehousekey) DESC, 
+                n_name ASC
+        """
+
+        cur = _conn.cursor()
+        cur.execute(sql)
+        rows = cur.fetchall()
+
+        for row in rows:
+            print(row)
+            output.write((header.format(row[0], row[1], row[2])) + "\n")
 
         output.close()
     except Error as e:
@@ -215,6 +257,32 @@ def Q3(_conn):
 
         header = "{:<20} {:<20} {:<40}"
         output.write((header.format("supplier", "nation", "warehouse")) + "\n")
+
+        sql = f"""
+            SELECT 
+                s_name as supplier,
+                n_name as nation,
+                w_name as warehouse
+            FROM
+                warehouse,
+                supplier,
+                nation
+            WHERE
+                w_nationkey = n_nationkey
+                AND w_suppkey = s_suppkey
+                AND n_name = '{nation}'
+            GROUP BY s_name
+            ORDER BY s_name ASC
+
+        """
+
+        cur = _conn.cursor()
+        cur.execute(sql)
+        rows = cur.fetchall()
+
+        for row in rows:
+            print(row)
+            output.write((header.format(row[0], row[1], row[2])) + "\n")
 
         output.close()
     except Error as e:
@@ -238,6 +306,26 @@ def Q4(_conn):
         header = "{:<40} {:>10}"
         output.write((header.format("warehouse", "capacity")) + "\n")
 
+        sql = f"""
+        SELECT 
+            w_name, 
+            MIN(w_capacity) as capacity
+        FROM
+            warehouse
+        WHERE
+            w_nationkey in (SELECT n_nationkey FROM nation WHERE n_regionkey in (SELECT r_regionkey FROM region WHERE r_name = '{region}'))
+            AND w_capacity > {cap}
+        GROUP BY w_name
+        ORDER BY capacity DESC
+        """
+        cur = _conn.cursor()
+        cur.execute(sql)
+        rows = cur.fetchall()
+
+        for row in rows:
+            print(row)
+            output.write((header.format(row[0], row[1])) + "\n")
+
         output.close()
     except Error as e:
         print(e)
@@ -258,6 +346,41 @@ def Q5(_conn):
 
         header = "{:<20} {:>20}"
         output.write((header.format("region", "capacity")) + "\n")
+        sql = f"""
+            SELECT
+                r_name,
+                CASE WHEN totCap > 0 THEN totCap ELSE 0 END
+            FROM
+                region,
+                (SELECT
+                    r_name as name,
+                    SUM(w_capacity) as totCap
+                FROM
+                    supplier,
+                    nation as n1,
+                    nation as n2,
+                    region,
+                    warehouse
+                WHERE
+                    w_nationkey = n1.n_nationkey
+                    AND n1.n_regionkey = r_regionkey
+                    AND n2.n_name = '{nation}'
+                    AND s_nationkey = n2.n_nationkey
+                    AND s_suppkey = w_suppkey
+                GROUP BY r_name
+                ) AS rTotCap
+            WHERE
+                r_name = name
+            GROUP BY r_name
+            """
+
+        cur = _conn.cursor()
+        cur.execute(sql)
+        rows = cur.fetchall()
+
+        for row in rows:
+            print(row)
+            output.write((header.format(row[0], row[1])) + "\n")
 
         output.close()
     except Error as e:
