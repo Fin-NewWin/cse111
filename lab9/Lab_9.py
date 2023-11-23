@@ -219,7 +219,7 @@ def Q3(_conn):
 
         for row in rows:
             print(row)
-            # output.write((header.format(row[0], row[1])) + "\n")
+            output.write((header.format(row[0], row[1])) + "\n")
 
         output.close()
     except Error as e:
