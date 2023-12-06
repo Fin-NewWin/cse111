@@ -1,0 +1,7 @@
+
+|--BLOOM FILTER ON nation (n_regionkey=? AND n_nationkey=?)
+QUERY PLAN
+|--SCAN customer
+`--SEARCH nation USING AUTOMATIC COVERING INDEX (n_regionkey=? AND n_nationkey=?)
+|--SEARCH region USING AUTOMATIC PARTIAL COVERING INDEX (r_name=?)
+tot_acct_bal

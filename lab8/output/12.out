@@ -1,0 +1,9 @@
+|--BLOOM FILTER ON lineitem (l_orderkey=?)
+|--BLOOM FILTER ON nation (n_nationkey=?)
+|--BLOOM FILTER ON supplier (s_suppkey=?)
+QUERY PLAN
+|--SCAN orders
+|--SEARCH lineitem USING AUTOMATIC COVERING INDEX (l_orderkey=?)
+|--SEARCH nation USING AUTOMATIC PARTIAL COVERING INDEX (n_nationkey=?)
+|--SEARCH supplier USING AUTOMATIC COVERING INDEX (s_suppkey=?)
+`--USE TEMP B-TREE FOR GROUP BY

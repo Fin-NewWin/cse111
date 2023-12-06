@@ -1,0 +1,10 @@
+
+|--BLOOM FILTER ON customer (c_nationkey=?)
+|--BLOOM FILTER ON nation (n_regionkey=?)
+|--BLOOM FILTER ON orders (o_custkey=?)
+QUERY PLAN
+|--SCAN region
+|--SEARCH customer USING AUTOMATIC COVERING INDEX (c_nationkey=?)
+|--SEARCH nation USING AUTOMATIC COVERING INDEX (n_regionkey=?)
+`--SEARCH orders USING AUTOMATIC PARTIAL COVERING INDEX (o_custkey=?)
+total_price

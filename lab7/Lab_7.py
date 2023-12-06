@@ -179,11 +179,11 @@ def Q1(_conn):
         output.write((header.format("wId", "wName", "wCap", "sId", "nId")) + "\n")
 
         sql = """SELECT
-                    w_warehousekey,
-                    w_name,
-                    w_capacity,
-                    w_suppkey,
-                    w_nationkey
+                    w_warehousekey as wId,
+                    w_name as wName,
+                    w_capacity as wCap,
+                    w_suppkey as sId,
+                    w_nationkey as nId
                 FROM
                     warehouse"""
 
@@ -213,7 +213,7 @@ def Q2(_conn):
         output.write((header.format("nation", "numW", "totCap")) + "\n")
 
         sql = """
-            SELECT 
+            SELECT
                 n_name,
                 COUNT(w_warehousekey) AS numW,
                 SUM(w_capacity) AS totCap
@@ -222,10 +222,10 @@ def Q2(_conn):
                 nation
             WHERE
                 w_nationkey = n_nationkey
-            GROUP BY 
+            GROUP BY
                 n_name
-            ORDER BY 
-                COUNT(w_warehousekey) DESC, 
+            ORDER BY
+                COUNT(w_warehousekey) DESC,
                 n_name ASC
         """
 
@@ -259,7 +259,7 @@ def Q3(_conn):
         output.write((header.format("supplier", "nation", "warehouse")) + "\n")
 
         sql = f"""
-            SELECT 
+            SELECT
                 s_name as supplier,
                 n_name as nation,
                 w_name as warehouse
@@ -307,8 +307,8 @@ def Q4(_conn):
         output.write((header.format("warehouse", "capacity")) + "\n")
 
         sql = f"""
-        SELECT 
-            w_name, 
+        SELECT
+            w_name,
             MIN(w_capacity) as capacity
         FROM
             warehouse
@@ -409,4 +409,3 @@ def main():
 
 
 if __name__ == "__main__":
-    main()

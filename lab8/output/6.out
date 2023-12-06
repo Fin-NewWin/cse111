@@ -1,0 +1,5 @@
+|--BLOOM FILTER ON nation (n_nationkey=?)
+QUERY PLAN
+|--SCAN supplier
+|--SEARCH nation USING AUTOMATIC COVERING INDEX (n_nationkey=?)
+`--USE TEMP B-TREE FOR GROUP BY

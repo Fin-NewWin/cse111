@@ -1,0 +1,7 @@
+|--BLOOM FILTER ON lineitem (l_orderkey=?)
+|--BLOOM FILTER ON orders (o_custkey=?)
+QUERY PLAN
+|--SCAN customer
+|--SEARCH lineitem USING AUTOMATIC COVERING INDEX (l_orderkey=?)
+|--SEARCH orders USING AUTOMATIC COVERING INDEX (o_custkey=?)
+`--USE TEMP B-TREE FOR GROUP BY

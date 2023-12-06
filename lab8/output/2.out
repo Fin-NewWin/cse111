@@ -1,0 +1,4 @@
+||
+min_acct_bal|max_acct_bal|tot_acct_bal
+QUERY PLAN
+`--SCAN customer

@@ -1,0 +1,9 @@
+|--BLOOM FILTER ON customer (c_custkey=?)
+|--BLOOM FILTER ON nation (n_nationkey=?)
+|--BLOOM FILTER ON region (r_regionkey=?)
+QUERY PLAN
+|--SCAN orders
+|--SEARCH customer USING AUTOMATIC COVERING INDEX (c_custkey=?)
+|--SEARCH nation USING AUTOMATIC COVERING INDEX (n_nationkey=?)
+|--SEARCH region USING AUTOMATIC COVERING INDEX (r_regionkey=?)
+`--USE TEMP B-TREE FOR GROUP BY

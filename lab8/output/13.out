@@ -1,0 +1,5 @@
+|--BLOOM FILTER ON supplier (s_suppkey=?)
+QUERY PLAN
+|--SCAN lineitem
+|--SEARCH supplier USING AUTOMATIC COVERING INDEX (s_suppkey=?)
+`--USE TEMP B-TREE FOR GROUP BY
