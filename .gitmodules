@@ -1,0 +1,3 @@
+[submodule "cse111-project"]
+	path = cse111-project
+	url = git@github.com:Fin-NewWin/cse111-project.git
