@@ -314,6 +314,24 @@ def Q4(_conn):
     print("++++++++++++++++++++++++++++++++++")
 
 
+def q02a(model: str, quantity: int, _conn: sqlite3.Connection) -> None:
+    print("++++++++++++++++++++++++++++++++++")
+
+    if model == "":
+        model = "None"
+
+    if quantity < 0:
+        quantity = 0
+
+    sql = f"""
+        INSERT VALUES INTO Inventory VALUES ({model}, {quantity})
+    """
+
+    cur = _conn.cursor()
+    cur.execute(sql)
+    _conn.commit()
+
+
 def Q5(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Q5")
@@ -876,7 +894,7 @@ def main():
 
     # create a database connection
     conn = openConnection(database)
-    with conn:
+    if conn:
         create_View1(conn)
         Q1(conn)
 
